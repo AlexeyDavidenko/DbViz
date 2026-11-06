@@ -1,0 +1,51 @@
+# ===== Secrets & local configuration =====
+config/credentials*.json
+!config/credentials.example.json
+config/dbviz.json
+*.local.json
+.env
+.env.*
+
+# ===== Anything extracted from a real database — never commit =====
+# tool working folder: snapshots, logs, demo/export vaults
+out/
+snapshot/
+snapshots/
+*.snapshot.json
+# exported standalone vaults and their marker
+DbViz-*/
+.dbviz-export
+# logs
+logs/
+*.log
+# Obsidian settings backups created by graph-config / the installer
+*.dbviz-backup-*
+# dumps
+*.dmp
+*.sql.gz
+
+# ===== Archives =====
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.bz2
+*.xz
+
+# ===== Local-only project notes =====
+docs/
+CLAUDE.md
+
+# ===== .NET / IDE =====
+bin/
+obj/
+.idea/
+.vs/
+*.user
+TestResults/
+
+# ===== macOS =====
+.DS_Store

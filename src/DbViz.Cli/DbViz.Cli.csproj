@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbViz.Core\DbViz.Core.csproj" />
+    <ProjectReference Include="..\DbViz.Oracle\DbViz.Oracle.csproj" />
+    <ProjectReference Include="..\DbViz.Obsidian\DbViz.Obsidian.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>dbviz</AssemblyName>
+  </PropertyGroup>
+
+</Project>

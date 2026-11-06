@@ -1,0 +1,23 @@
+{
+  // Copy this file to config/dbviz.json (ignored by git) and adjust it.
+
+  // Exactly one schema (owner) is documented. Every dictionary query is filtered by OWNER = schema.
+  "schema": "HR",
+
+  // DB address and credentials are NOT stored here: put them into config/credentials.json (ignored by git)
+  // or set DBVIZ_DATASOURCE / DBVIZ_USER / DBVIZ_PASSWORD.
+  "commandTimeoutSeconds": 600,
+
+  // Relative paths are resolved against the project root; out/ is ignored by git.
+  // "snapshotPath": "out/snapshot/HR.json",   // default: out/snapshot/<schema>.json
+  "logDir": "out/logs",
+
+  // Notes are written only into <root>/<section>/<schema>/
+  "vault": {
+    "root": "~/ObsidianVault",
+    "section": "Databases"
+  },
+
+  // Longest PL/SQL source shown in a note (the rest is truncated)
+  "maxSourceLines": 3000
+}
