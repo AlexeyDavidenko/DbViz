@@ -10,7 +10,10 @@ namespace DbViz.Tests;
 public sealed class StandaloneExporterTests : IDisposable
 {
     private readonly string _tmp = Path.Combine(Path.GetTempPath(), "dbviz-export-" + Guid.NewGuid().ToString("N"));
-    public void Dispose() => Directory.Delete(_tmp, recursive: true);
+    public void Dispose()
+    {
+        if (Directory.Exists(_tmp)) Directory.Delete(_tmp, recursive: true); // some tests return early (e.g. macOS-only)
+    }
 
     [Fact]
     public void Export_produces_self_contained_vault_with_owner_edits_bookmarks_and_zip()
@@ -54,9 +57,11 @@ public sealed class StandaloneExporterTests : IDisposable
         Assert.Empty(broken);
 
         // the archive contains the whole vault
-        using var zip = ZipFile.OpenRead(r.ZipPath);
-        Assert.Contains(zip.Entries, e => e.FullName.Replace('\\', '/') == "DbViz-DEMO/.obsidian/bookmarks.json");
-        Assert.Contains(zip.Entries, e => e.FullName.Replace('\\', '/') == "DbViz-DEMO/" + StandaloneExporter.HomeNote);
+        using (var zip = ZipFile.OpenRead(r.ZipPath)) // closed before re-export: Windows cannot delete an open file
+        {
+            Assert.Contains(zip.Entries, e => e.FullName.Replace('\\', '/') == "DbViz-DEMO/.obsidian/bookmarks.json");
+            Assert.Contains(zip.Entries, e => e.FullName.Replace('\\', '/') == "DbViz-DEMO/" + StandaloneExporter.HomeNote);
+        }
 
         // re-export recreates its own folder without errors
         StandaloneExporter.Export(DemoSnapshot.Create(), null, outDir, null, NullLog.Instance);
